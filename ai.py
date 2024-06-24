@@ -29,24 +29,28 @@ def idaStar(puzzle):
     bound = hScore(puzzle)
     path = [puzzle]
     dirs = []
+    max_depth = 0
     while True:
-        rem = search(path, 0, bound, dirs)
+        rem, new_depth = search(path, 0, bound, dirs, 0)
+        max_depth = max(max_depth, new_depth)
         if rem == True:
             tDelta = (perf_counter_ns()-t1)/NANO_TO_SEC
             print("Took {} seconds to find a solution of {} moves".format(tDelta, len(dirs)))
-            return dirs
+            return dirs, tDelta, max_depth
         elif rem == INF:
             return None
         bound = rem
-def search(path, g, bound, dirs):
+
+def search(path, g, bound, dirs, max_depth):
     cur = path[-1]
     f = g + hScore(cur)
+    max_depth = max(max_depth,g)
 
     if f > bound:
-        return f
+        return f, max_depth
 
     if cur.checkWin():
-        return True
+        return True, max_depth
     min = INF
 
     for dir in cur.DIRECTIONS:
@@ -60,16 +64,17 @@ def search(path, g, bound, dirs):
         path.append(simPuzzle)
         dirs.append(dir)
 
-        t = search(path, g + 1, bound, dirs)
+        t, temp_depth = search(path, g + 1, bound, dirs, max_depth)
+        max_depth = max(max_depth, temp_depth)
         if t == True:
-            return True
+            return True, max_depth
         if t < min:
             min = t
 
         path.pop()
         dirs.pop()
 
-    return min
+    return min, max_depth
 
 def hScore(puzzle):
     h = 0
