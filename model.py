@@ -73,28 +73,16 @@ class Puzzle:
                # print(self.board[i][j],(i * self.boardSize + j + 1))
                 
                 if (self.board[i][j] != (i * self.boardSize + j + 1)) or (self.board[i][j] == 0 or self.board[i][j] == 1): #or self.board[i][j] != 10:
-                    #count += 1
-                    #print((i,j))
+
                     return False
                 
-        # if count != 3:
-        #     return False
-        
-           # print(self.board[i][j])
+
         print("Won")
         return True
-    # def checkWin(self):
-    #     for i in range(1,self.boardSize-1):
-    #         for j in range(1,self.boardSize-1):
-    #             if self.board[i][j] != i * self.boardSize + j + 1 and self.board[i][j] != 0:
-    #                 return False
-
-    #     return True
-
+    
     def hash(self, group = {}):
         if not group:
             group = {s for s in range(self.boardSize**2)}
-        #print(self.boardSize)
         hashString = ['0']*2*(self.boardSize**2)
 
         for i in range(self.boardSize):

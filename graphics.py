@@ -15,9 +15,9 @@ WIDTH = ((SIZE+6)*TILE + (SIZE+5)*SPACING)
 HEIGHT = ((SIZE+2)*TILE) + ((SIZE+1)*SPACING)
 
 # setup
-pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Rubik's Race")
+#pygame.init()
+#screen = pygame.display.set_mode((WIDTH, HEIGHT))
+#pygame.display.set_caption("Rubik's Race")
 
 # initialize board
 board = Board(size=SIZE)
